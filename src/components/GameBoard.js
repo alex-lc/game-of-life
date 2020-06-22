@@ -97,8 +97,8 @@ function GameBoard() {
                             }}
                             style={{
                                 width: 20,
-                                height: 20, backgroundColor: grid[i][k] ? "pink" : undefined,
-                                border: "solid 1px black"
+                                height: 20, backgroundColor: grid[i][k] ? "#14528f" : undefined,
+                                border: "solid 1px #111111"
                             }}
                         />
                     ))
