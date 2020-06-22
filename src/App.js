@@ -1,27 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
+import produce from 'immer';
 
 import './styles/main.scss';
 
-/* data source */
-import {data} from './utils/data.js';
-
 /* components */
-import Cell from './components/Cell.js';
+import GameBoard from './components/GameBoard.js';
 
 function App() {
-
-  const [cells, setCells] = useState([data]);
-  
   return (
     <div className="container">
-      <div className="game-board">
-        {console.log(data)}
-        {cells.map((cell, idx) => {
-          return (
-            <Cell key={idx} />
-          )
-        })}
-      </div>
+      <GameBoard />
     </div>
   );
 }
