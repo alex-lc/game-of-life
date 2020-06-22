@@ -85,27 +85,6 @@ function GameBoard() {
 
     return (
         <div className="container">
-            <button onClick={() => {
-                setRunning(!running)
-                if (!running) {
-                    runningRef.current = true;
-                    runSimulation();
-                }
-            }}>{running ? 'stop' : 'start'}</button>
-
-            <button onClick={() => {
-                setGrid(generateEmptyGrid());
-            }}>clear</button>
-
-            <button onClick={() => {
-                const rows = [];
-                for (let i = 0; i < numRows; i++) {
-                    rows.push(Array.from(Array(numCols), () => Math.random() > 0.7 ? 1 : 0));
-                }
-
-                setGrid(rows);
-            }}>random</button>
-
             <div className="game-board" style={{ display: "grid", gridTemplateColumns: `repeat(${numCols}, 20px)` }}>
                 {grid.map((rows, i) =>
                     rows.map((col, k) => (
@@ -124,6 +103,29 @@ function GameBoard() {
                         />
                     ))
                 )}
+            </div>
+
+            <div className="game-controls">
+                <button onClick={() => {
+                    setRunning(!running)
+                    if (!running) {
+                        runningRef.current = true;
+                        runSimulation();
+                    }
+                }}>{running ? 'stop' : 'start'}</button>
+
+                <button onClick={() => {
+                    setGrid(generateEmptyGrid());
+                }}>clear</button>
+
+                <button onClick={() => {
+                    const rows = [];
+                    for (let i = 0; i < numRows; i++) {
+                        rows.push(Array.from(Array(numCols), () => Math.random() > 0.7 ? 1 : 0));
+                    }
+
+                    setGrid(rows);
+                }}>random</button>
             </div>
         </div>
     );

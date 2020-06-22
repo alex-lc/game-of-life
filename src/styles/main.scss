@@ -1,17 +1,33 @@
 /* main container */
 .container {
     padding: 5rem 0;
-    width: 1210px;
+    width: 80%;
     max-width: 1210px;
     margin: 0 auto;
 }
 
 .game-board {
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.cell {
-    width: 4.84rem;
-    height: 4.84rem;
-    background: #111111;
+.game-controls {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+
+    button {
+        margin: 0 1rem;
+        color: #fafafa;
+        background: #1e74c9;
+        padding: 1rem 1.5rem;
+        border: 1px solid #14528f;
+        border-radius: 0.5rem;
+        text-transform: uppercase;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
