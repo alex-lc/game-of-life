@@ -1,0 +1,19 @@
+/* main container */
+.container {
+    padding: 5rem 0;
+    width: 1210px;
+    max-width: 1210px;
+    margin: 0 auto;
+}
+
+.game-board {
+    width: 100%;
+    height: 60rem;
+    background: #ccc;
+}
+
+.cell {
+    width: 4.84rem;
+    height: 4.84rem;
+    background: #111111;
+}
