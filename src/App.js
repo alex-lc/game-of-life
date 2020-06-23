@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
-import produce from 'immer';
+import { useSpring, animated } from 'react-spring';
 
 import './styles/main.scss';
 
@@ -7,11 +7,14 @@ import './styles/main.scss';
 import GameBoard from './components/GameBoard.js';
 
 function App() {
+
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
+
   return (
-    <div className="container">
+    <animated.div style={props} className="container">
       <h1>Conway's Game of Life</h1>
       <GameBoard />
-    </div>
+    </animated.div>
   );
 }
 

@@ -39,10 +39,12 @@ function GameBoard() {
     const runningRef = useRef();
     runningRef.current = running;
 
-    /* state for managing generation speed and generation count */
+    /* state for managing generation speed, generation count
+        disabled status, and cell color */
     const [speed, setSpeed] = useState(500);
     const [generations, setGenerations] = useState(0);
     const [cellColor, setcellColor] = useState('#14528f');
+    const [disabled, setDisabled] = useState(false);
 
     /* running our simulation */
     const runSimulation = useCallback(() => {
@@ -107,10 +109,12 @@ function GameBoard() {
                     rows.map((col, k) => (
                         <div key={`${i}-${k}`}
                             onClick={() => {
-                                const newGrid = produce(grid, gridCopy => {
-                                    gridCopy[i][k] = grid[i][k] ? 0 : 1;
-                                })
-                                setGrid(newGrid);
+                                if (!running) {
+                                    const newGrid = produce(grid, gridCopy => {
+                                        gridCopy[i][k] = grid[i][k] ? 0 : 1;
+                                    })
+                                    setGrid(newGrid);
+                                }
                             }}
                             style={{
                                 width: 20,
@@ -125,10 +129,11 @@ function GameBoard() {
             <div className="game-controls">
                 <div className="buttons">
                     <button onClick={() => {
-                        setRunning(!running)
+                        setRunning(!running);
                         if (!running) {
                             runningRef.current = true;
                             runSimulation();
+                            setDisabled(true);
                         }
                     }}>{running ? 'stop' : 'start'}</button>
 
