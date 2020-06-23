@@ -37,6 +37,9 @@ function GameBoard() {
     const runningRef = useRef();
     runningRef.current = running;
 
+    /* state for managing generation speed */
+    const [speed, setSpeed] = useState(500);
+
     /* running our simulation */
     const runSimulation = useCallback(() => {
         // if we are not running, then break / exit out of simulation
@@ -79,9 +82,14 @@ function GameBoard() {
             });
         });
 
-        // game generations take half a second
-        setTimeout(runSimulation, 500);
-    }, []);
+        // game generations take half a second initially
+        setTimeout(runSimulation, speed);
+    }, [speed]);
+
+    /* update speed of generation */
+    const updateSpeed = (e) => {
+        setSpeed(e.target.value);
+    }
 
     return (
         <div className="container">
@@ -106,26 +114,34 @@ function GameBoard() {
             </div>
 
             <div className="game-controls">
-                <button onClick={() => {
-                    setRunning(!running)
-                    if (!running) {
-                        runningRef.current = true;
-                        runSimulation();
-                    }
-                }}>{running ? 'stop' : 'start'}</button>
+                <div className="buttons">
+                    <button onClick={() => {
+                        setRunning(!running)
+                        if (!running) {
+                            runningRef.current = true;
+                            runSimulation();
+                        }
+                    }}>{running ? 'stop' : 'start'}</button>
 
-                <button onClick={() => {
-                    setGrid(generateEmptyGrid());
-                }}>clear</button>
+                    <button onClick={() => {
+                        setGrid(generateEmptyGrid());
+                        setSpeed(500);
+                    }}>clear</button>
 
-                <button onClick={() => {
-                    const rows = [];
-                    for (let i = 0; i < numRows; i++) {
-                        rows.push(Array.from(Array(numCols), () => Math.random() > 0.7 ? 1 : 0));
-                    }
+                    <button onClick={() => {
+                        const rows = [];
+                        for (let i = 0; i < numRows; i++) {
+                            rows.push(Array.from(Array(numCols), () => Math.random() > 0.7 ? 1 : 0));
+                        }
 
-                    setGrid(rows);
-                }}>random</button>
+                        setGrid(rows);
+                    }}>random</button>
+                </div>
+
+                <div className="options">
+                    <label>Generation Speed (ms): </label>
+                    <input type="text" name="speed" onChange={updateSpeed} value={speed} />
+                </div>
             </div>
         </div>
     );

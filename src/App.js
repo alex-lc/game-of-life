@@ -9,6 +9,7 @@ import GameBoard from './components/GameBoard.js';
 function App() {
   return (
     <div className="container">
+      <h1>Conway's Game of Life</h1>
       <GameBoard />
     </div>
   );

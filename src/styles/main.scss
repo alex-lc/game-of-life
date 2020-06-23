@@ -1,6 +1,6 @@
 /* main container */
 .container {
-    padding: 5rem 0;
+    // padding: 5rem 0;
     width: 80%;
     max-width: 1210px;
     margin: 0 auto;
@@ -13,21 +13,56 @@
 }
 
 .game-controls {
-    margin-top: 2rem;
+    margin: 2rem 0 5rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
-    button {
-        margin: 0 1rem;
-        color: #fafafa;
-        background: #1e74c9;
-        padding: 1rem 1.5rem;
-        border: 1px solid #14528f;
-        border-radius: 0.5rem;
-        text-transform: uppercase;
+    .buttons {
+        margin: 1rem 0;
 
-        &:hover {
-            cursor: pointer;
+        button {
+            margin: 0 1rem;
+            color: #fafafa;
+            background: #1e74c9;
+            padding: 1rem 1.5rem;
+            border: 1px solid #14528f;
+            border-radius: 0.5rem;
+            text-transform: uppercase;
+    
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
+
+    .options {
+        margin: 1rem 0;
+
+        label {
+            font-size: 1.6rem;
+            line-height: 2.6rem;
+            font-weight: 300;
+        }
+
+        input {
+            height: 2.5rem;
+            font-size: 1.6rem;
+            line-height: 2.6rem;
+            font-weight: 300;
+            padding-left: 0.5rem;
+        }
+    }
+
+}
+
+/* typography */
+
+h1 {
+    margin: 5rem 0 2rem;
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 5rem;
+    color: #111111;
+    text-align: center;
 }
