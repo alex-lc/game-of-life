@@ -1,6 +1,8 @@
 import React, { useState, useCallback, useRef } from 'react';
 import produce from 'immer';
 
+import { CirclePicker } from 'react-color';
+
 import '../styles/main.scss';
 
 /* utils */
@@ -37,8 +39,10 @@ function GameBoard() {
     const runningRef = useRef();
     runningRef.current = running;
 
-    /* state for managing generation speed */
+    /* state for managing generation speed and generation count */
     const [speed, setSpeed] = useState(500);
+    const [generations, setGenerations] = useState(0);
+    const [cellColor, setcellColor] = useState('#14528f');
 
     /* running our simulation */
     const runSimulation = useCallback(() => {
@@ -91,6 +95,11 @@ function GameBoard() {
         setSpeed(e.target.value);
     }
 
+    /* handle color change */
+    const handleColorChange = (color, event) => {
+        setcellColor(color.hex);
+    }
+
     return (
         <div className="container">
             <div className="game-board" style={{ display: "grid", gridTemplateColumns: `repeat(${numCols}, 20px)` }}>
@@ -105,8 +114,8 @@ function GameBoard() {
                             }}
                             style={{
                                 width: 20,
-                                height: 20, backgroundColor: grid[i][k] ? "#14528f" : undefined,
-                                border: "solid 1px #111111"
+                                height: 20, backgroundColor: grid[i][k] ? `${cellColor}` : undefined,
+                                border: "solid 1px #f0f0f0"
                             }}
                         />
                     ))
@@ -126,6 +135,7 @@ function GameBoard() {
                     <button onClick={() => {
                         setGrid(generateEmptyGrid());
                         setSpeed(500);
+                        setGenerations(0);
                     }}>clear</button>
 
                     <button onClick={() => {
@@ -141,6 +151,11 @@ function GameBoard() {
                 <div className="options">
                     <label>Generation Speed (ms): </label>
                     <input type="text" name="speed" onChange={updateSpeed} value={speed} />
+                    <p>Current Speed: {speed}ms</p>
+                    <p>Current Generation: {generations}</p>
+                    <div className="color-picker">
+                        <CirclePicker onChange={handleColorChange} />
+                    </div>
                 </div>
             </div>
         </div>

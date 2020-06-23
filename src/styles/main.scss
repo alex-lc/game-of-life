@@ -43,6 +43,7 @@
             font-size: 1.6rem;
             line-height: 2.6rem;
             font-weight: 300;
+            color: #f0f0f0;
         }
 
         input {
@@ -51,6 +52,21 @@
             line-height: 2.6rem;
             font-weight: 300;
             padding-left: 0.5rem;
+        }
+
+        p {
+            font-size: 1.6rem;
+            line-height: 2.6rem;
+            font-weight: 500;
+            color: #f0f0f0;
+            margin: 1rem 0;
+        }
+
+        .color-picker {
+            margin: 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
     }
 
@@ -63,6 +79,6 @@ h1 {
     font-size: 4rem;
     font-weight: 900;
     line-height: 5rem;
-    color: #111111;
+    color: #f0f0f0;
     text-align: center;
 }
