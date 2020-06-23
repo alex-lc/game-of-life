@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import produce from 'immer';
 
-import { CirclePicker } from 'react-color';
+import { TwitterPicker } from 'react-color';
 
 import '../styles/main.scss';
 
@@ -42,9 +42,11 @@ function GameBoard() {
     /* state for managing generation speed, generation count
         disabled status, and cell color */
     const [speed, setSpeed] = useState(500);
-    const [generations, setGenerations] = useState(0);
     const [cellColor, setcellColor] = useState('#14528f');
     const [disabled, setDisabled] = useState(false);
+
+    /* TODO: track and count generation changes to display to use */
+    const [generations, setGenerations] = useState(0);
 
     /* running our simulation */
     const runSimulation = useCallback(() => {
@@ -157,9 +159,9 @@ function GameBoard() {
                     <label>Generation Speed (ms): </label>
                     <input type="text" name="speed" onChange={updateSpeed} value={speed} />
                     <p>Current Speed: {speed}ms</p>
-                    <p>Current Generation: {generations}</p>
                     <div className="color-picker">
-                        <CirclePicker onChange={handleColorChange} />
+                        <h3>Select a Color: </h3>
+                        <TwitterPicker onChange={handleColorChange} />
                     </div>
                 </div>
             </div>
