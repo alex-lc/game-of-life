@@ -1,12 +1,47 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import produce from 'immer';
 
+/* styles and material UI */
 import { TwitterPicker } from 'react-color';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
 
 import '../styles/main.scss';
 
 /* utils */
 import { operations } from '../utils/operations.js';
+
+const useStyles = makeStyles((theme) => ({
+    appBar: {
+        position: 'relative',
+        background: '#14528f'
+    },
+    title: {
+        marginLeft: theme.spacing(2),
+        flex: 1
+    },
+    list: {
+        background: '#111111'
+    },
+    dialogue: {
+        background: '#111111'
+    }
+}));
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 /* number of rows and columns for game board */
 const numRows = 25;
@@ -44,6 +79,17 @@ function GameBoard() {
     const [speed, setSpeed] = useState(500);
     const [cellColor, setcellColor] = useState('#14528f');
     const [disabled, setDisabled] = useState(false);
+
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     /* TODO: track and count generation changes to display to use */
     const [generations, setGenerations] = useState(0);
@@ -130,6 +176,30 @@ function GameBoard() {
 
             <div className="game-controls">
                 <div className="buttons">
+                    <button onClick={handleClickOpen}>Game Rules</button>
+                    <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+                        <AppBar className={classes.appBar}>
+                            <Toolbar>
+                                <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                                    <CloseIcon />
+                                </IconButton>
+                                <Typography variant="h6" className={classes.title}>
+                                    Game Rules for Conway's Game of Life
+                                </Typography>
+                                <Button autoFocus color="inherit" onClick={handleClose}>
+                                    close
+                                </Button>
+                            </Toolbar>
+                        </AppBar>
+                        <div className="game-rules">
+                            <h3>The rules of Conway's Game of Life are simple:</h3>
+                            <div>- Any live cell with fewer than two live neighbors dies, as if by underpopulation.</div>
+                            <div>- Any live cell with two or three live neighbors lives on to the next generation.</div>
+                            <div>- Any live cell with more than three live neighbors dies, as if by overpopulation.</div>
+                            <div>- Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.</div>
+                        </div>
+                    </Dialog>
+
                     <button onClick={() => {
                         setRunning(!running);
                         if (!running) {

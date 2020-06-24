@@ -84,6 +84,24 @@
 
 }
 
+.game-rules {
+    width: 100%;
+    height: 100vh;
+    background: #111111;
+    color: #f0f0f0;
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 2.8rem;
+    padding: 3rem;
+
+    h3 {
+        font-size: 3rem;
+        font-weight: 500;
+        line-height: 4rem;
+        margin-bottom: 1rem;
+    }
+}
+
 /* typography */
 
 h1 {
