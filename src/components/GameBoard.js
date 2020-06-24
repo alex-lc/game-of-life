@@ -78,15 +78,17 @@ function GameBoard() {
         disabled status, and cell color */
     const [speed, setSpeed] = useState(500);
     const [cellColor, setcellColor] = useState('#14528f');
-    const [disabled, setDisabled] = useState(false);
 
+    /* state for material-UI dialogue */
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
+    /* handle opening of material-UI dialogue */
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    /* handle closing of material-UI dialogue */
     const handleClose = () => {
         setOpen(false);
     };
@@ -105,6 +107,9 @@ function GameBoard() {
             // use immer to create the next generation of cells, leaving
             // the previous generation untouched
             return produce(g, gridCopy => {
+
+                setGenerations(generations + 1);
+
                 // iterate through our rows and columns
                 for (let i = 0; i < numRows; i++) {
                     for (let k = 0; k < numCols; k++) {
@@ -138,7 +143,7 @@ function GameBoard() {
 
         // game generations take half a second initially
         setTimeout(runSimulation, speed);
-    }, [speed]);
+    }, [speed, generations]);
 
     /* update speed of generation */
     const updateSpeed = (e) => {
@@ -206,7 +211,6 @@ function GameBoard() {
                         if (!running) {
                             runningRef.current = true;
                             runSimulation();
-                            setDisabled(true);
                         }
                     }}>{running ? 'stop' : 'start'}</button>
 
@@ -230,6 +234,8 @@ function GameBoard() {
                     <label>Generation Speed (ms): </label>
                     <input type="text" name="speed" onChange={updateSpeed} value={speed} />
                     <p>Current Speed: {speed}ms</p>
+                    <p>Current Generation: {generations}</p>
+                    <p>Game Status: {running ? 'Running' : 'Not Running'}</p>
                     <div className="color-picker">
                         <h3>Select a Color: </h3>
                         <TwitterPicker onChange={handleColorChange} />
