@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import produce from 'immer';
+import useInterval from '../hooks/useInterval';
 
 /* styles and material UI */
 import { TwitterPicker } from 'react-color';
@@ -30,12 +31,6 @@ const useStyles = makeStyles((theme) => ({
     title: {
         marginLeft: theme.spacing(2),
         flex: 1
-    },
-    list: {
-        background: '#111111'
-    },
-    dialogue: {
-        background: '#111111'
     }
 }));
 
@@ -94,7 +89,7 @@ function GameBoard() {
     };
 
     /* TODO: track and count generation changes to display to use */
-    const [generations, setGenerations] = useState(0);
+    const [generations, setGenerations] = useState(1);
 
     /* running our simulation */
     const runSimulation = useCallback(() => {
@@ -107,8 +102,6 @@ function GameBoard() {
             // use immer to create the next generation of cells, leaving
             // the previous generation untouched
             return produce(g, gridCopy => {
-
-                setGenerations(generations + 1);
 
                 // iterate through our rows and columns
                 for (let i = 0; i < numRows; i++) {
@@ -154,6 +147,12 @@ function GameBoard() {
     const handleColorChange = (color, event) => {
         setcellColor(color.hex);
     }
+
+    useInterval(() => {
+        if (running) {
+            setGenerations(generations + 1);
+        }
+    }, speed);
 
     return (
         <div className="container">
