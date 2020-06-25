@@ -19,6 +19,7 @@ import '../styles/main.scss';
 /* utils */
 import { operations } from '../utils/operations.js';
 
+/* style config for Material-UI */
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+/* transition for Material-UI for game rules */
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -84,7 +86,7 @@ function GameBoard() {
         setOpen(false);
     };
 
-    /* TODO: track and count generation changes to display to use */
+    /* track and count generation changes to display to user */
     const [generations, setGenerations] = useState(0);
 
     /* running our simulation */
