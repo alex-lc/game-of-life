@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React from 'react';
 import { useSpring, animated } from 'react-spring';
 
 import './styles/main.scss';
