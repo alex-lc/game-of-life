@@ -2,6 +2,8 @@
 
 This documentation serves as a reference for the Game of Life, a CS Build Week project.
 
+### __Live Deployment__: https://gameol.vercel.app/
+
 ## __Built With__:
 
 - React
